@@ -1,0 +1,22 @@
+# VM images and disks, never commit these
+*.vmdk
+*.vdi
+*.ova
+*.ovf
+*.iso
+*.vmem
+*.vmsd
+*.vmx
+*.vmxf
+*.nvram
+
+# Secrets and local notes
+*.key
+*.pem
+.env
+notes-private/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
