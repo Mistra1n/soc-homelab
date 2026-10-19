@@ -5,7 +5,7 @@ Goal: the SIEM receives logins, process creations, and network events from both 
 ## Windows victim
 
 1. Install **Sysmon** with a community config (see `../scripts/install-sysmon.ps1`).
-2. Install the **Wazuh agent** and point it at the SIEM (see `../scripts/install-wazuh-agent.ps1`).
+2. Install the **Wazuh agent** and point it at the SIEM (see `../scripts/install-wazuh-agent.ps1`). The agent version must match the server: this lab runs **4.14.9**, so use `-Version 4.14.9`.
 3. Make the agent forward the Sysmon channel (see `ossec-sysmon-snippet.xml`).
 
 ## Linux (Kali)

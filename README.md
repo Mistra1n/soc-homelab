@@ -18,11 +18,11 @@ A hands-on Security Operations Center (SOC) lab built on a single laptop. An att
 | Machine | Role | OS | RAM | Disk |
 |---|---|---|---|---|
 | `kali` | Attacker | Kali Linux | 2 GB | 30 GB |
-| `win-victim` | Victim / log source | Windows 10/11 + Sysmon + Wazuh agent | 4 GB | 50 GB |
-| `wazuh` | SIEM | Wazuh all-in-one OVA | 5 GB | 50 GB |
+| `win-victim` | Victim / log source | Windows 10 (21H1) + Sysmon + Wazuh agent | 4 GB | 50 GB |
+| `wazuh` | SIEM | Wazuh 4.14.9 all-in-one OVA | 4 GB | 50 GB |
 
 **Host:** MSI Crosshair 15 · Intel i7-11800H (8C/16T) · 20 GB RAM · Windows 11 Pro
-**Hypervisor:** VMware Workstation Pro
+**Hypervisor:** VMware Workstation Pro 17
 
 ## Goals
 
@@ -34,8 +34,8 @@ A hands-on Security Operations Center (SOC) lab built on a single laptop. An att
 
 ## Progress
 
-- [ ] 01 · Hypervisor and isolated network
-- [ ] 02 · Core machines (Kali, Windows victim, Wazuh server)
+- [x] 01 · Hypervisor and isolated network
+- [ ] 02 · Core machines (Kali ✅ · Wazuh ✅ · Windows victim ⏳)
 - [ ] 03 · Logging (Sysmon + Wazuh agent, Linux auth logs)
 - [ ] 04 · Attack simulations
 - [ ] 05 · Detection rules and dashboard
