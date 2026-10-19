@@ -35,7 +35,7 @@ A hands-on Security Operations Center (SOC) lab built on a single laptop. An att
 ## Progress
 
 - [x] 01 · Hypervisor and isolated network
-- [ ] 02 · Core machines (Kali ✅ · Wazuh ✅ · Windows victim ⏳)
+- [x] 02 · Core machines (Kali ✅ · Wazuh ✅ · Windows victim ✅, static IPs on Wazuh and victim)
 - [ ] 03 · Logging (Sysmon + Wazuh agent, Linux auth logs)
 - [ ] 04 · Attack simulations
 - [ ] 05 · Detection rules and dashboard
