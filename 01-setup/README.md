@@ -12,7 +12,10 @@
 - [x] Static IP on Wazuh (`192.168.56.10`), persistent via systemd-networkd
 - [x] Static IP on Windows victim (`192.168.56.20`), reaches Wazuh over VMnet2
 - [ ] Static IP on Kali (`192.168.56.30`)
-- [ ] Temporary NAT adapter on the victim for downloads (Sysmon, Wazuh agent)
+- [x] Installers brought into the victim offline (copied to `C:\lab`), so no NAT adapter was needed and the victim stays isolated
+- [x] Wazuh agent installed on the victim (`WazuhSvc` shows Running)
+- [ ] Agent shows **Active** in the Wazuh dashboard
+- [ ] Sysmon installed and verified (`Sysmon64` Running)
 - [ ] `clean-install` snapshot of Kali and the Windows victim
 
 ## Host
@@ -88,9 +91,10 @@ The OVA boots to its login prompt (`wazuh-server`, version 4.14.9) on `VMnet2`.
 - **First pings failed with "General failure".** The new static address was still `Tentative` (duplicate address detection). It cleared after a few seconds.
 - **Ping TTL.** Replies from Wazuh show TTL=127 rather than Linux's usual 64. The Windows victim has no other route, so the replies come straight from Wazuh over VMnet2.
 - **Typing in the Wazuh console.** The VM console cannot paste, so the config heredoc was first mistyped (`/ete/` instead of `/etc/`, then a wrong service name) and the file was never written. It worked when retyped carefully. For longer configs, SSH in from the host (`ssh wazuh-user@192.168.56.10`) where pasting works.
+- **No internet on the victim.** Adding a NAT adapter did not work in this setup, so Sysmon and the Wazuh agent were installed offline from files downloaded on the host. This also keeps the victim fully isolated, which is the intent for the attack phase.
 - **Keep VMs out of OneDrive.** Moved the `VMs` folder from the Desktop (OneDrive-backed) to `C:\VMs` before importing anything.
 - **Don't store VMs on `D:`.** It is a removable USB drive, which is too slow for VM disks.
 
 ## Next
 
-Give the victim a temporary NAT adapter so it can download Sysmon and the Wazuh agent, install both, then remove the NAT adapter. See [`../02-logging/`](../02-logging/) for the steps.
+Confirm the agent is Active in the Wazuh dashboard, confirm Sysmon is running, forward the Sysmon channel to Wazuh, then give Kali its static IP. See [`../02-logging/`](../02-logging/).

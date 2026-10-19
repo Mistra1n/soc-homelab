@@ -41,6 +41,10 @@ A hands-on Security Operations Center (SOC) lab built on a single laptop. An att
 - [ ] 05 · Detection rules and dashboard
 - [ ] 06 · Findings and lessons learned
 
+### Where I left off (2026-10-20)
+
+Three VMs are built and on the isolated network. Wazuh (`192.168.56.10`) and the Windows victim (`192.168.56.20`) reach each other, and the victim has no internet. The Wazuh agent is installed on the victim. Next: verify the agent in the dashboard, verify Sysmon, forward Sysmon logs, set Kali's IP (`192.168.56.30`).
+
 ## Repo layout
 
 | Folder | Contents |
