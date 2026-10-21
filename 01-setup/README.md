@@ -47,7 +47,7 @@ Planned addresses:
 | VM | IP (static) | Adapter |
 |---|---|---|
 | Wazuh | `192.168.56.10` | VMnet2 |
-| Windows victim | `192.168.56.20` | VMnet2 (plus a temporary NAT adapter for installs) |
+| Windows victim | `192.168.56.20` | VMnet2 only (installers copied in offline) |
 | Kali | `192.168.56.30` | VMnet2 |
 
 ## Verified connectivity
