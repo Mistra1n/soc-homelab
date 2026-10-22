@@ -37,13 +37,13 @@ A hands-on Security Operations Center (SOC) lab built on a single laptop. An att
 - [x] 01 · Hypervisor and isolated network
 - [x] 02 · Core machines (Kali ✅ · Wazuh ✅ · Windows victim ✅, static IPs on Wazuh and victim)
 - [ ] 03 · Logging (Sysmon + Wazuh agent, Linux auth logs)
-- [ ] 04 · Attack simulations
+- [x] 04 · Attack simulations (in progress — 01/06 done)
 - [ ] 05 · Detection rules and dashboard
 - [ ] 06 · Findings and lessons learned
 
 ### Where I left off (2026-10-22)
 
-Three VMs are built and on the isolated network. Wazuh (`192.168.56.10`) and the Windows victim (`192.168.56.20`) reach each other, the victim has no internet, and the victim's agent shows **Active** in the Wazuh dashboard with Sysmon running. Sysmon events arrive in Wazuh mapped to MITRE ATT&CK, and Kali (`192.168.56.30`) reaches both machines. Next: `clean-install` snapshot for Kali, then the first attack simulations.
+Three VMs are built and on the isolated network. Wazuh (`192.168.56.10`) and the Windows victim (`192.168.56.20`) reach each other, the victim has no internet, and the victim's agent shows **Active** in the Wazuh dashboard with Sysmon running. Setup is complete across all three machines. First attack simulated: an nmap scan from Kali against the victim produced no Wazuh alert at all — documented as a real detection gap (host-based agent can't see a silently-blocked scan) rather than a failure. Next: SSH/RDP brute force, which should produce clear Windows Security events, then write the first custom detection rule.
 
 ## Repo layout
 
