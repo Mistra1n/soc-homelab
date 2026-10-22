@@ -22,12 +22,14 @@ NET START WazuhSvc
 Get-Service WazuhSvc
 ```
 
-### Status (2026-10-20)
+### Status (2026-10-22)
 
 - [x] Wazuh agent installed, `WazuhSvc` Running
-- [ ] Sysmon running (`Get-Service Sysmon64`)
+- [x] Sysmon running (`Get-Service Sysmon64`)
 - [ ] Sysmon channel forwarded (snippet added to `ossec.conf`, agent restarted)
-- [ ] Victim shows **Active** in the Wazuh dashboard
+- [x] Victim shows **Active** in the Wazuh dashboard
+
+![Wazuh dashboard with the agent Active](../screenshots/02-logging/wazuh-dashboard-agent-active.png)
 
 ## Linux (Kali)
 
@@ -36,7 +38,7 @@ Get-Service WazuhSvc
 
 ## Verification checklist
 
-- [ ] Agent shows **Active** in the Wazuh dashboard
+- [x] Agent shows **Active** in the Wazuh dashboard
 - [ ] Sysmon Event ID 1 (process creation) appears
 - [ ] Windows logon events (4624 / 4625) appear
 - [ ] Linux SSH login events appear
