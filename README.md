@@ -43,7 +43,7 @@ A hands-on Security Operations Center (SOC) lab built on a single laptop. An att
 
 ### Where I left off (2026-10-22)
 
-Three VMs are built and on the isolated network. Wazuh (`192.168.56.10`) and the Windows victim (`192.168.56.20`) reach each other, the victim has no internet, and the victim's agent shows **Active** in the Wazuh dashboard with Sysmon running. Next: forward Sysmon logs and confirm they arrive, set Kali's IP (`192.168.56.30`), take `clean-install` snapshots.
+Three VMs are built and on the isolated network. Wazuh (`192.168.56.10`) and the Windows victim (`192.168.56.20`) reach each other, the victim has no internet, and the victim's agent shows **Active** in the Wazuh dashboard with Sysmon running. Sysmon events arrive in Wazuh mapped to MITRE ATT&CK, and Kali (`192.168.56.30`) reaches both machines. Next: `clean-install` snapshot for Kali, then the first attack simulations.
 
 ## Repo layout
 

@@ -11,7 +11,7 @@
 - [x] Windows victim VM created (Windows 10 21H1, `win-victim`)
 - [x] Static IP on Wazuh (`192.168.56.10`), persistent via systemd-networkd
 - [x] Static IP on Windows victim (`192.168.56.20`), reaches Wazuh over VMnet2
-- [ ] Static IP on Kali (`192.168.56.30`)
+- [x] Static IP on Kali (`192.168.56.30`), on VMnet2 only, reaches Wazuh and the victim, no internet
 - [x] Installers brought into the victim offline (copied to `C:\lab`), so no NAT adapter was needed and the victim stays isolated
 - [x] Wazuh agent installed on the victim (`WazuhSvc` shows Running)
 - [x] Agent shows **Active** in the Wazuh dashboard (2026-10-22)
@@ -69,6 +69,15 @@ The Windows victim has one adapter on VMnet2 with `192.168.56.20/24` and no gate
 
 ![win-victim ping](../screenshots/01-setup/win-victim-ping-wazuh.png)
 
+Kali has `192.168.56.30/24` set with `nmcli` (manual IPv4, no gateway, no DNS). It reaches Wazuh and the victim, and `8.8.8.8` fails with "Network is unreachable", so all three machines are isolated on VMnet2.
+
+![Kali static IP and pings](../screenshots/01-setup/kali-static-ip-ping.png)
+
+```bash
+sudo nmcli con mod "Wired connection 1" ipv4.method manual ipv4.addresses 192.168.56.30/24 ipv4.gateway "" ipv4.dns ""
+sudo nmcli con up "Wired connection 1"
+```
+
 ## VM sizing
 
 | VM | RAM | vCPU | Disk |
@@ -94,6 +103,8 @@ The OVA boots to its login prompt (`wazuh-server`, version 4.14.9) on `VMnet2`.
 - **No internet on the victim.** Adding a NAT adapter did not work in this setup, so Sysmon and the Wazuh agent were installed offline from files downloaded on the host. This also keeps the victim fully isolated, which is the intent for the attack phase.
 - **Agent installed without a manager address.** The MSI was run without `WAZUH_MANAGER`, so the agent showed `0.0.0.0` and "Auth key not imported". Fixed by setting `<address>192.168.56.10</address>` in `ossec.conf` and enrolling manually with `agent-auth.exe -m 192.168.56.10 -A win-victim`.
 - **Wazuh services would not start (`agent-auth` error 1208).** Ping worked but ports 1515 and 443 were closed because `wazuh-indexer`, `wazuh-manager` and `wazuh-dashboard` were down. Starting the indexer failed with "a timeout was exceeded". The indexer simply takes several minutes to start on a 4 GB VM (its JVM heap was auto-sized to about 3.2 GB). Fix: a systemd drop-in with `TimeoutStartSec=900` for the indexer and manager, `systemctl enable` for all three services, then a reboot. After that the stack came up on its own, after several minutes.
+- **Kali defaults to NAT.** The pre-built image ships with a NAT adapter and gets a `192.168.x.x` address plus internet. Switching its adapter to `Custom: VMnet2` removes the internet, which is intended.
+- **Windows Firewall blocks ping by default.** Added an inbound ICMPv4 allow rule on the victim so Kali can reach it: `New-NetFirewallRule -DisplayName "Lab ICMPv4" -Protocol ICMPv4 -IcmpType 8 -Action Allow`.
 - **Dashboard needs patience after boot.** Port 443 only opens once the indexer is ready, so wait 8-10 minutes after powering on before opening `https://192.168.56.10`.
 - **Keep VMs out of OneDrive.** Moved the `VMs` folder from the Desktop (OneDrive-backed) to `C:\VMs` before importing anything.
 - **Don't store VMs on `D:`.** It is a removable USB drive, which is too slow for VM disks.
