@@ -26,7 +26,7 @@ Get-Service WazuhSvc
 
 - [x] Wazuh agent installed, `WazuhSvc` Running
 - [x] Sysmon running (`Get-Service Sysmon64`)
-- [ ] Sysmon channel forwarded (snippet added to `ossec.conf`, agent restarted)
+- [x] Sysmon channel forwarded (snippet added to `ossec.conf`, agent restarted)
 - [x] Victim shows **Active** in the Wazuh dashboard
 
 ![Wazuh dashboard with the agent Active](../screenshots/02-logging/wazuh-dashboard-agent-active.png)
@@ -39,7 +39,13 @@ Get-Service WazuhSvc
 ## Verification checklist
 
 - [x] Agent shows **Active** in the Wazuh dashboard
-- [ ] Sysmon Event ID 1 (process creation) appears
+- [x] Sysmon events appear in Wazuh (query `data.win.system.providerName: Microsoft-Windows-Sysmon`, 147 hits in the first 24 h)
+
+  ![Sysmon events in Threat Hunting](../screenshots/02-logging/wazuh-sysmon-dashboard.png)
+
+  ![Sysmon events list](../screenshots/02-logging/wazuh-sysmon-events.png)
+
+  Early baseline noise (rules 92031, 92066, 92201, 92217, levels 3-9: discovery activity, `SecEdit.exe`, PowerShell writing scripts to Temp) appears right after the agent starts, before any attack was run. It is most likely the agent's own configuration scans and the lab setup commands, so it is recorded here as a baseline to tune against later.
 - [ ] Windows logon events (4624 / 4625) appear
 - [ ] Linux SSH login events appear
 
