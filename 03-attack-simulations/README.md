@@ -5,7 +5,7 @@ One write-up per attack, using [`../templates/attack-writeup.md`](../templates/a
 | # | Attack | MITRE ATT&CK | Status |
 |---|---|---|---|
 | 01 | [Port scan (nmap)](01-nmap-scan.md) | T1046 · Network Service Discovery | ✅ done — no alert (gap documented) |
-| 02 | [RDP brute force (Hydra)](02-rdp-brute-force.md) | T1110.001 · Password Guessing | 🔁 re-running — first run's evidence lost to a VM snapshot revert |
+| 02 | [RDP brute force (Hydra)](02-rdp-brute-force.md) | T1110.001 · Password Guessing | ✅ done — caught by Wazuh's default rule `92657`, no tuning needed |
 | 03 | Malicious file download *(stretch goal)* | T1105 · Ingress Tool Transfer | ⬜ |
 
 **Rule:** lab network only, my own machines only.

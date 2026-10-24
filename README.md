@@ -43,7 +43,7 @@ A hands-on Security Operations Center (SOC) lab built on a single laptop. An att
 
 ### Where I left off (2026-10-22)
 
-Three VMs are built and on the isolated network. Wazuh (`192.168.56.10`) and the Windows victim (`192.168.56.20`) reach each other, the victim has no internet, and the victim's agent shows **Active** in the Wazuh dashboard with Sysmon running. Setup is complete across all three machines. First attack simulated: an nmap scan produced no Wazuh alert — documented as a real detection gap. A first RDP brute force run (Hydra) did succeed and was partially analyzed in Wazuh, but a VM snapshot revert erased that evidence before it was written up — recorded as a lesson learned, see [`03-attack-simulations/`](03-attack-simulations/). Re-running it now that the lab is stable again. Scope trimmed to 2-3 attacks total so the project reaches a finished state.
+Three VMs are built and on the isolated network. Wazuh (`192.168.56.10`) and the Windows victim (`192.168.56.20`) reach each other, the victim has no internet, and the victim's agent shows **Active** in the Wazuh dashboard with Sysmon running. Setup is complete across all three machines. Two attacks simulated and written up: an nmap scan that produced no Wazuh alert (a real detection gap), and an RDP brute force that Wazuh's default ruleset caught immediately, including flagging the successful logon as a possible pass-the-hash pattern. See [`03-attack-simulations/`](03-attack-simulations/). Next: deploy the custom tuning rule in `04-detection-rules/`, then write up findings.
 
 ## Repo layout
 
