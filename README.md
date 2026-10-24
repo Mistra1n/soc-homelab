@@ -2,7 +2,7 @@
 
 A hands-on Security Operations Center (SOC) lab built on a single laptop. An attacker VM generates real malicious traffic against a Windows victim, every event is shipped to a SIEM, and I write detection rules to catch the activity and map it to MITRE ATT&CK.
 
-> **Status:** 🚧 In progress. See the [progress tracker](#progress) below.
+> **Status:** ✅ Core workflow complete — network built, telemetry flowing, two attacks simulated and detected (one by a custom rule). See the [progress tracker](#progress) below.
 
 ## Architecture
 
@@ -35,15 +35,20 @@ A hands-on Security Operations Center (SOC) lab built on a single laptop. An att
 ## Progress
 
 - [x] 01 · Hypervisor and isolated network
-- [x] 02 · Core machines (Kali ✅ · Wazuh ✅ · Windows victim ✅, static IPs on Wazuh and victim)
-- [ ] 03 · Logging (Sysmon + Wazuh agent, Linux auth logs)
-- [x] 04 · Attack simulations (in progress — 01/06 done)
-- [ ] 05 · Detection rules and dashboard
-- [ ] 06 · Findings and lessons learned
+- [x] 02 · Core machines (Kali ✅ · Wazuh ✅ · Windows victim ✅, static IPs on all three)
+- [x] 03 · Logging (Sysmon + Wazuh agent forwarding, verified in the SIEM)
+- [x] 04 · Attack simulations (2 of 2 planned: port scan, RDP brute force — see scope note in [`03-attack-simulations/`](03-attack-simulations/))
+- [x] 05 · Detection rules (custom rule `100001` deployed and verified, see [`04-detection-rules/`](04-detection-rules/))
+- [x] 06 · Findings ([`05-findings/`](05-findings/))
 
-### Where I left off (2026-10-22)
+### Status (2026-10-24)
 
-Three VMs are built and on the isolated network. Wazuh (`192.168.56.10`) and the Windows victim (`192.168.56.20`) reach each other, the victim has no internet, and the victim's agent shows **Active** in the Wazuh dashboard with Sysmon running. Setup is complete across all three machines. Two attacks simulated and written up: an nmap scan that produced no Wazuh alert (a real detection gap), and an RDP brute force that Wazuh's default ruleset caught immediately, including flagging the successful logon as a possible pass-the-hash pattern. See [`03-attack-simulations/`](03-attack-simulations/). Next: deploy the custom tuning rule in `04-detection-rules/`, then write up findings.
+The core loop is done end to end: three isolated VMs → Kali attacks the victim → Sysmon + Wazuh agent ship logs → Wazuh detects. Two attacks were simulated and documented:
+
+- **Port scan (nmap):** no alert at all — a genuine visibility gap (host-based agents can't see a silently-filtered scan without a network IDS, which this lab doesn't have).
+- **RDP brute force (Hydra):** caught twice — by Wazuh's built-in rule `92657` (success + pass-the-hash heuristic), and by a custom rule (`100001`) tuned to fire earlier, on the 5th failed attempt rather than waiting for a successful one.
+
+Along the way: a VM snapshot revert erased one attack's evidence before it was written up, which became its own documented lesson about snapshot timing. Remaining work (Linux/Kali logging, more attacks, a dashboard) is optional polish, not required for the core project to stand on its own — see each folder's README for ideas if picking this back up.
 
 ## Repo layout
 
