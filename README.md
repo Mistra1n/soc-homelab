@@ -71,7 +71,7 @@ Every attack in this repo was run **only against machines I own, inside an isola
 
 Wazuh · Sysmon · Kali Linux · nmap · Hydra · VMware Workstation · MITRE ATT&CK
 
-## Other projects in this repo
+## Other projects in this Lab repo 
 
 | Project | What it is | Status |
 |---|---|---|
