@@ -70,3 +70,10 @@ Every attack in this repo was run **only against machines I own, inside an isola
 ## Tools
 
 Wazuh · Sysmon · Kali Linux · nmap · Hydra · VMware Workstation · MITRE ATT&CK
+
+## Other projects in this repo
+
+| Project | What it is | Status |
+|---|---|---|
+| [`pfsense-kali-ubuntu-lab/`](pfsense-kali-ubuntu-lab/) | pfSense firewall between a Kali attacker and an Ubuntu/DVWA target — before/after evidence that firewall rules actually block attack traffic | 🚧 Planned |
+| [`htb-ad-ldap/`](htb-ad-ldap/) | Write-up for HTB Academy's Active Directory LDAP module — AD fundamentals, LDAP search filters, enumeration, skills assessment | 🚧 In progress |
